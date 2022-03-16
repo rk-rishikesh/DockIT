@@ -27,6 +27,17 @@ import { LOGIN_MODAL_EVENTS } from "@web3auth/ui";
 import { CONNECTED_EVENT_DATA } from "@web3auth/base";
 
 import { SolanaWallet } from "@web3auth/solana-provider";
+import { styled } from "@mui/material/styles";
+import MuiGrid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
+
+const Grid = styled(MuiGrid)(({ theme }) => ({
+  width: "100%",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 2),
+  },
+}));
 
 // WEB3 AUTH
 const solanaChainConfig = {
@@ -198,11 +209,51 @@ function CreateInvoice(props) {
         <Content style={{ padding: "0 50px" }}>
           <div className="hero-section">
             <Row span={100}>
-              <Col span={16}>
+              <Col span={40}>
                 <div className="hero-slogan-section">
-                  <h1>Invoicing built for speed and scale</h1>
                   <br />
-                  <Button type="primary" size="large" onClick={login}>
+                  <Grid container>
+                    <Grid item xs>
+                      <h1 style= {{color:"purple"}}>Eliminate external Vendor</h1>
+                      {`No need to open a partnership with an external vendor for managing invoices, 
+                      or paying vendor-specific fees such as those from Stripe.`}
+                    </Grid>
+                    <Divider orientation="vertical" flexItem>
+                      .
+                    </Divider>
+                    <Grid item xs>
+                      <h1 style= {{color:"purple"}}>Easy to get started</h1>
+                      {`Create, customize, and send a NFT backed invoice in minutes—all from the 
+                      Dashboard with no code required.`}
+                    </Grid>
+                    <Divider orientation="vertical" flexItem>
+                      .
+                    </Divider>
+                    <Grid item xs>
+                      <h1 style= {{color:"purple"}}>Send an Invoice to customers</h1>
+                      {`Email your customers a link to a NFT backed invoice page and get paid without
+                       the need to share your wallet address`}
+                    </Grid>
+                    <Divider orientation="vertical" flexItem>
+                      .
+                    </Divider>
+                    <Grid item xs>
+                      <h1 style= {{color:"purple"}}>Leverages Solana Pay</h1>
+                      {`Solana Pay is built for immediate transactions, fees that are fractions of a penny, 
+                      and a net-zero environmental impact.`}
+                    </Grid>
+                  </Grid>
+                  <br />
+                  <Button
+                    type="primary"
+                    size="large"
+                    shape="round"
+                    onClick={login}
+                    style={{
+                      backgroundColor: "#720e9e",
+                      outline: "none",
+                    }}
+                  >
                     Start Now
                   </Button>
                 </div>
@@ -213,9 +264,7 @@ function CreateInvoice(props) {
             </Row>
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          ©2022 - Created for Riptide 2022
-        </Footer>
+        <br/>
       </div>
     );
   } else {
@@ -321,6 +370,7 @@ function CreateInvoice(props) {
                     Generate Invoice
                   </Button>
                   <br />
+                  <br />
 
                   {result && (
                     <div className="success-text">
@@ -331,14 +381,16 @@ function CreateInvoice(props) {
                         href={areraveUrl(result)}
                         clickable
                         target="_blank"
-                        style={{ marginLeft: "20px" }}
+                        style={{ marginLeft: "23%" }}
                       />
+                      &nbsp;
                       <Chip
                         label="Share payment URL"
                         component="a"
                         href={invoiceUrl(result)}
                         clickable
                         target="_blank"
+                        style={{ marginLeft: "17%" }}
                       />
                     </div>
                   )}

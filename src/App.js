@@ -22,7 +22,7 @@ import { CONNECTED_EVENT_DATA } from "@web3auth/base";
 
 import { SolanaWallet } from "@web3auth/solana-provider";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+
 // WEB3 AUTH
 // const solanaChainConfig = {
 //   chainNamespace: CHAIN_NAMESPACES.SOLANA,
@@ -144,7 +144,7 @@ function App() {
               </div>
             </Content>
 
-            <Footer style={{ textAlign: "center", backgroundColor:"#E6E6FA" }}>
+            <Footer style={{ textAlign: "center", backgroundColor:"#E6E6FA"}}>
               ©2022 - Created for Riptide 2022
             </Footer>
           </Layout>

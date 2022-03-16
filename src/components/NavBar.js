@@ -18,7 +18,7 @@ function NavBar(props) {
           </Link>
         </Menu.Item>
         <Menu.Item key={1}>
-          <Link to="/history">History</Link>
+          <Link to="/history">Transactions</Link>
         </Menu.Item>
       </Menu>
     </div>

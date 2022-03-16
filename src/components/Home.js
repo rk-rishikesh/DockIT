@@ -10,7 +10,7 @@ import MuiGrid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 
 const CHECKLIST_ITEMS = [
-  "Free invoice page hosting on IPFS",
+  "Free invoice page hosting on Arerave",
   "Receipts auto-generated as NFTs",
   "No vendor agreements required",
 ];
@@ -31,7 +31,7 @@ function Home(props) {
           <div className="hero-slogan-section">
             <div className="hero-slogan">
               <p>
-                X for
+                Decentralized Invoices for
                 <br />
                 <ReactRotatingText
                   items={["businesses", "consultants", "everyone"]}
@@ -63,7 +63,7 @@ function Home(props) {
           </div>
         </Col>
         <Col span={12}>
-          <Grid container>
+          {/* <Grid container>
             <Grid item xs>
               <img src="https://th.bing.com/th/id/OIP.UYKd8I8SK1WdPpIVY7cArAHaHa?w=204&h=203&c=7&r=0&o=5&dpr=1.12&pid=1.7" />
             </Grid>
@@ -101,10 +101,13 @@ function Home(props) {
    Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
    Sed malesuada lobortis pretium.`}
             </Grid>
-          </Grid>
+          </Grid> */}
         </Col>
       </Row>
+      <br/>
+      
     </div>
+    
   );
 }
 

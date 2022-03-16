@@ -1,130 +1,123 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Select, Table } from "antd";
-import * as web3 from "@solana/web3.js";
-import { Connection, programs, actions } from "@metaplex/js";
-import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
-import {
-  useWallet,
-  WalletProvider,
-  ConnectionProvider,
-} from "@solana/wallet-adapter-react";
-import {
-  WalletModalProvider,
-  WalletMultiButton,
-} from "@solana/wallet-adapter-react-ui";
-import { PublicKey } from "@solana/web3.js";
+import { Button, Input } from "antd";
+import { useMoralisSolanaApi, useMoralisSolanaCall } from "react-moralis";
+import { useMoralis } from "react-moralis";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
-const axios = require("axios");
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#720e9e",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
-const { Option } = Select;
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border,
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
-const wallets = [
-  /* view list of available wallets at https://github.com/solana-labs/wallet-adapter#wallets */
-  new PhantomWalletAdapter(),
-];
+function createData(tokenAddress, link) {
+  return { tokenAddress, link };
+}
 
-const COLUMNS = [
-  //   col("tx_hash"),
-  //   col("from_address"),
-  "to_address",
-  "value",
-  "gas_spent",
-];
+const rows = [];
 
 function History(props) {
-  const [address, setAddress] = useState(
-    "0x73bceb1cd57c711feac4224d062b0f6ff338501e"
-  );
-  const userWallet = useWallet();
+  const { account } = useMoralisSolanaApi();
+
+  // get devnet SPL NFT balance for a given address
+  const options = {
+    network: "devnet",
+    address: "9m4dVgFdzNnTJnE38uPPuCg22iMQ3L3CKpTNzWFSsFb4",
+  };
+  const { fetch } = useMoralisSolanaCall(account.getNFTs, options);
+
   const [loading, setLoading] = useState();
-  const [data, setData] = useState();
 
   const fetchHistory = async () => {
-    // if (!address || !chainId) {
-    //   alert("Address and chainId are required");
-    //   return;
-    // }
-
     setLoading(true);
-    try {
-      let connection = new web3.Connection(web3.clusterApiUrl("devnet"));
-      console.log(connection);
-      const wallet = new PublicKey(userWallet.publicKey.toString());
-      console.log(wallet);
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const data = {
-        jsonrpc: "2.0",
-        id: 1,
-        method: "qn_fetchNFTsByCreator",
-        params: [{
-          creator: "DznU28LgherhU2JwC2db3KmAeWPqoF9Yx2aVtNUudW6R",
-          page: 1,
-          perPage: 3
-        }]
-      };
-      axios
-        .post("http://sample-endpoint-name.network.quiknode.pro/token-goes-here/", data, config)
-        .then(function (response) {
-          // handle success
-          console.log(response.data);
-        })
-        .catch((err) => {
-          // handle error
-          console.log(err);
-        });
-    } catch (e) {
-      console.error(e);
-      alert("error getting paydata" + e);
-    } finally {
-      setLoading(false);
+    const data = await fetch();
+    console.log(data);
+    console.log(data[0].mint);
+    console.log(data.length);
+    for (var i = 0; i < data.length; i++) {
+      rows.push(createData(data[i].associatedTokenAddress, data[i].mint));
     }
+    setLoading(false);
   };
 
   return (
     <div>
-      <p>
-        This page can be used to lookup DockIT transactions against a given
-        address.
-      </p>
-      <Input
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        prefix="Address"
-      ></Input>
       <br />
-      <p></p>
       &nbsp;
-      <Button onClick={fetchHistory} disabled={loading} loading={loading}>
-        View transactions
-      </Button>
+      <Paper elevation={3} style={{ padding: 10 }}>
+      &nbsp;&nbsp;<Input
+          type="text"
+          placeholder="Account address"
+          style={{ paddingRight: "40%" }}
+        ></Input>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Button
+          onClick={fetchHistory}
+          disabled={loading}
+          component="span"
+        >
+          View Transactions
+        </Button>
+      </Paper>
       <br />
       <hr />
-      {data && (
+      {true && (
         <div>
           <h1>Transaction History</h1>
-          <Table
-            dataSource={data}
-            columns={COLUMNS}
-            className="pointer"
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: (event) => {
-                  console.log("event", event.target.value);
-                }, // click row
-                onDoubleClick: (event) => {}, // double click row
-                onContextMenu: (event) => {}, // right button click row
-                onMouseEnter: (event) => {}, // mouse enter row
-                onMouseLeave: (event) => {}, // mouse leave row
-              };
-            }}
-          />
-          ;
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="left">Token Address</StyledTableCell>
+                  <StyledTableCell align="left">
+                    Solscan&nbsp;Link
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <StyledTableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.tokenAddress}
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                      <a
+                        target="_blank"
+                        href="www.google.com"
+                      >{`https://solscan.io/token/${row.link}?cluster=devnet`}</a>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       )}
     </div>
@@ -133,14 +126,4 @@ function History(props) {
 
 History.propTypes = {};
 
-const AppWithProvider = () => (
-  <ConnectionProvider endpoint="http://127.0.0.1:8899">
-    <WalletProvider wallets={wallets} autoConnect>
-      <WalletModalProvider>
-        <History />
-      </WalletModalProvider>
-    </WalletProvider>
-  </ConnectionProvider>
-);
-
-export default AppWithProvider;
+export default History;
