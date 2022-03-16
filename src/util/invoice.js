@@ -34,7 +34,7 @@ const getMetadata = (paymentURL, imageUrl, creatorAddress) => ({
   image: imageUrl,
 });
 
-const runUpload = async (data, contentType, isUploadByChunk = false) => {
+export const runUpload = async (data, contentType, isUploadByChunk = false) => {
   key = await arweave.wallets.generate();
   const tx = await arweave.createTransaction({ data: data }, key);
   console.log(tx);
@@ -58,15 +58,13 @@ const runUpload = async (data, contentType, isUploadByChunk = false) => {
   return tx.id;
 };
 
-export const uploadMetadata = async (paymentURL, creatorAddress) => {
+export const uploadMetadata = async (imageURL, paymentURL, creatorAddress) => {
   // const contentType = ["Content-Type", "image/png"];
   // const { id } = iRfKZbkkA5BR7R6sOBHav9nR1g-x85ZXjOfT7it7fJw;
   // const imageUrl = id ? `https://arweave.net/${id}` : undefined;
   console.log(paymentURL);
   console.log(creatorAddress);
-  const imageUrl =
-    "https://arweave.net/iRfKZbkkA5BR7R6sOBHav9nR1g-x85ZXjOfT7it7fJw";
-  console.log("imageUrl", imageUrl);
+  const imageUrl = imageURL;
 
   const metadata = getMetadata(paymentURL, imageUrl, creatorAddress);
   console.log(metadata);

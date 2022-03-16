@@ -98,9 +98,6 @@ function App() {
   // };
 
   return (
-    <div style={{backgroundColor: "black"}}>
-
-
     <div className="App" >
       <Router>
         {/* {!connected ? (
@@ -147,13 +144,12 @@ function App() {
               </div>
             </Content>
 
-            <Footer style={{ textAlign: "center" }}>
+            <Footer style={{ textAlign: "center", backgroundColor:"#E6E6FA" }}>
               ©2022 - Created for Riptide 2022
             </Footer>
           </Layout>
         {/* )} */}
       </Router>
-    </div>
     </div>
   );
 }

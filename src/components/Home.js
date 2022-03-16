@@ -50,8 +50,13 @@ function Home(props) {
             })}
             <br />
 
-            <Button type="primary" size="large">
-              <Link className="nav-link" to="/create">
+            <Button
+              type="secondary"
+              size="large"
+              shape="round"
+              style={{ backgroundColor: "#720e9e", outline: "none" }}
+            >
+              <Link className="nav-link" to="/create" style={{color:"white"}}>
                 Create Invoice
               </Link>
             </Button>
@@ -60,30 +65,30 @@ function Home(props) {
         <Col span={12}>
           <Grid container>
             <Grid item xs>
-              <h1>Hello</h1>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
-   Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-   Sed malesuada lobortis pretium.`}
+              <img src="https://th.bing.com/th/id/OIP.UYKd8I8SK1WdPpIVY7cArAHaHa?w=204&h=203&c=7&r=0&o=5&dpr=1.12&pid=1.7" />
             </Grid>
             <Divider orientation="vertical" flexItem>
               .
             </Divider>
             <Grid item xs>
-            <h1>Mello</h1>
-              {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
-   Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-   Sed malesuada lobortis pretium.`}
+              <h1 style={{ color: "white" }}>Mello</h1>
+              <h5 style={{ color: "whitesmoke" }}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus id dignissim justo. Nulla ut facilisis ligula.
+                Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                Sed malesuada lobortis pretium.
+              </h5>
             </Grid>
           </Grid>
-          <br/>
+          <br />
 
-          <br/>
+          <br />
 
-          <br/>
+          <br />
           <Grid container>
             <Grid item xs>
               <h1>Hello</h1>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
+              {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
    Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
    Sed malesuada lobortis pretium.`}
             </Grid>
@@ -91,13 +96,12 @@ function Home(props) {
               .
             </Divider>
             <Grid item xs>
-            <h1>Mello</h1>
+              <h1>Mello</h1>
               {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id dignissim justo.
    Nulla ut facilisis ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus.
    Sed malesuada lobortis pretium.`}
             </Grid>
           </Grid>
-
         </Col>
       </Row>
     </div>

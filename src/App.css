@@ -4,14 +4,17 @@
 } */
 
 .hero-section {
-  margin-top: 120px;
+  padding: 120px;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 80%;
+  padding: 2%;
   margin: 0 auto;
   min-height: 80vh;
-  margin-top: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
 }
 
 .hero-slogan-section {
@@ -49,4 +52,16 @@ textarea {
 
 .ant-layout-header {
   background: white;
+}
+
+.layout {
+  background-image: url("https://th.bing.com/th/id/R.a38b67eabc1d0ad7ec6a5214539b9f07?rik=5v%2byU%2bS7K%2fYCFA&riu=http%3a%2f%2fnetworklookout.com%2fimg%2fstyle%2fbanner-bg.png&ehk=RMmckrLN6tZYF1kdc7f6PXFKmLmQBOqYmGsZUKHBaQE%3d&risl=&pid=ImgRaw&r=0");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.invoiceInput {
+  padding-right: 10%;
+  padding-bottom: 2%;
 }
